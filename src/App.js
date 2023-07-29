@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
 
-function App() {
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Signin from '.components/Signin';
+import NextScreen from '.components/NextScreen';
+
+const App = () => {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  const handleSignIn = (signedIn) => {
+    setIsSignedIn(signedIn);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Route
+          path="/"
+          exact
+          render={() => (isSignedIn ? <NextScreen /> : <Signin onSignIn={handleSignIn} />)}
+        />
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
